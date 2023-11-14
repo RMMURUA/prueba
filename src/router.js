@@ -18,7 +18,7 @@ router.use('/speciality', speciality);
 router.use('/permision', permision);
 router.use('/patient', patient);
 // router.use('/user', user);
-router.use('/transcript', transcript);
+// router.use('/transcript', transcript);
 
 // user.User = User;
 
