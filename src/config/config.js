@@ -6,7 +6,7 @@ module.exports = {
   development: {
     username: process.env.DB_USER || 'SpeaknosisDevelop',
     password: process.env.DB_PASSWORD || 'DevelopSpeaknosis2023',
-    database: `${process.env.DB_NAME}` || 'Speaknosis-Backend-DB', // _development
+    database: process.env.DB_NAME || 'Speaknosis-Backend-DB', // _development
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 8000,
     dialect: 'postgres',
