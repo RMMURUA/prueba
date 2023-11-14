@@ -4,12 +4,10 @@ FROM node:16-alpine
 WORKDIR /usr/src/app
 
 # Cloud Sql Proxy
-RUN apt-get update \
-  && apt-get install --no-install-recommends -y \
-    wget \
-  ;
-RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-RUN chmod +x cloud_sql_proxy
+RUN apk update && \
+    apk add --no-cache wget && \
+    wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy && \
+    chmod +x cloud_sql_proxy
 
 COPY . .
 
