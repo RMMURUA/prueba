@@ -1,0 +1,16 @@
+node_modules/
+speaknosis-backend-firebase-adminsdk.json
+speaknosis-backend-firebase-config.json
+speaknosis-backend-1fefb34d34bd.json
+speaknosis-001-50c1fe87eb8b.json
+speaknosis-backend-bb3ca64dae97.json
+credentials.json
+.env
+.env_old
+
+yarn-error.log
+cloud-sql-proxy
+cloud_sql_proxy
+deployment.yaml
+yarn.lock
+cloud_sql_proxy_2

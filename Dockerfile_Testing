@@ -1,0 +1,39 @@
+# Use NodeJS base image
+FROM node:16-alpine
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Create a temporary file to hold logs and set permissions
+RUN touch /usr/src/app/test.log && \
+    chmod 666 /usr/src/app/test.log && \
+    echo -e "\nTests Logs:\n" > /usr/src/app/test.log
+
+# Copy package files and other necessary files
+COPY package*.json ./
+COPY cloud_sql_proxy ./
+COPY speaknosis-backend-1fefb34d34bd.json ./
+
+# Install dependencies (including development for testing)
+RUN yarn install && \
+    chmod +x ./cloud_sql_proxy
+
+# Copy all other project files
+COPY . .
+
+# Switch to non-root user and set environment variables
+USER node
+ENV GOOGLE_APPLICATION_CREDENTIALS=./speaknosis-backend-1fefb34d34bd.json
+
+# Expose application port
+EXPOSE 8080
+
+# Run cloud_sql_proxy and start the application
+# Remove the temporary log file when the container stops
+CMD ./cloud_sql_proxy -instances=speaknosis-backend:us-central1:speaknosis-backend=tcp:8000 2>&1 | awk '!/New connection for|Client closed local connection/ || /Listening on|Ready for new connections/' & \
+    sleep 4 && \
+    node src/index.js & \
+    sleep 10 && \
+    yarn test && \
+    cat /usr/src/app/test.log && \
+    exit 0
